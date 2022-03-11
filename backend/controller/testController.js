@@ -5,25 +5,13 @@ exports.getAllProducts = (req,res)=>{
     })
 }
 
-exports.printData = (req,res)=>{
+exports.printData = async(req,res)=>{
     console.log(req.body)
     const data = req.body
 
-    axios.post("https://www.crmgoaway.online/api/send/lead", data).then((response)=>{
-        // console.log(response)
-        res.status(200).json({
-            message:response.status
-        })
-    }).catch(err)
-    {   
-        console.log(err)
-        res.status(400).json({
-            message:err
-        })
-    }
-    
-
+    const resData = await axios.post("https://www.crmgoaway.online/api/send/lead", data)
+    console.log(resData.data)
     res.status(200).json({
-        message:"success"
+        message:resData.data
     })
 }
